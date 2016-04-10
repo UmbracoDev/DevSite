@@ -1,0 +1,64 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en" ng-app="flickrApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Model.Content.Name</title>
+
+    <!-- Bootstrap -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-controller="flickrCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Flickr Image Feed</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="form-inline search" role="form">
+                    <div class="form-group">
+                        <label for="tag">Tag:</label>
+                        <input type="text" class="form-control" id="tag" ng-model="tag">
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="search()">Search</button>
+                    <button ng-disabled="page == 2" ng-click="nextPage()" class="btn btn-default">Next page</button>
+                    <span class="pull-right">Order by: 
+                        <a class="toogleImageSort" ng-click="toggle('date')">Date
+                            <i ng-class="newest ? 'glyphicon glyphicon-triangle-bottom' : 'glyphicon glyphicon-triangle-top'" class=""></i>
+                        </a>
+                    </span>
+                </form>
+
+            </div>
+        </div>
+        <div class="row image-wrapper">
+            <div class="col-lg-3 col-sm-4 col-xs-12 image" ng-repeat="image in images | limitTo: 10 | orderBy: 'published':newest">
+                <a href="{{image.link}}" target="_blank">
+                    <img ng-src="{{image.media.m}}" alt="{{image.title}}" />
+                </a>
+                <p>
+                    <b>{{image.title | limitTo: 30}}{{image.title.length > 30 ? '...' : ''}}</b><br />
+                    {{image.published | date:"MM/dd/yyyy 'at' h:mma"}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

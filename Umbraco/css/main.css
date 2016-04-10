@@ -1,0 +1,16 @@
+﻿.search {
+  margin-bottom: 20px; }
+  .search .toogleImageSort {
+    color: #333;
+    cursor: pointer; }
+    .search .toogleImageSort i {
+      margin-left: 5px; }
+
+.image-wrapper img {
+  object-fit: cover;
+  width: 240px;
+  height: 120px; }
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .image-wrapper .image img {
+    width: 200px; } }
